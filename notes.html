@@ -6,6 +6,7 @@
     <title>KeviTest Notes</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css">
 </head>
 <body>
     <div class="sidebar" id="sidebar">
@@ -39,8 +40,8 @@
         <div class="topbar">
             <button id="toggle-sidebar"><i class="fas fa-bars"></i></button>
             <div class="search-container">
-                <input type="text" id="search-notes" placeholder="Search notes...">
-                <button id="search-notes-btn"><i class="fas fa-search"></i></button>
+                <input type="text" id="notes-search-input" placeholder="Search notes...">
+                <button id="notes-search-btn"><i class="fas fa-search"></i></button>
             </div>
             <div class="topbar-actions">
                 <button id="new-note-btn"><i class="fas fa-plus"></i> New Note</button>
@@ -49,43 +50,48 @@
         </div>
 
         <div class="notes-container">
-            <div id="notes-list">
-                <!-- Notes will be loaded here -->
+            <div class="notes-sidebar">
+                <div class="notes-sidebar-header">
+                    <h3>My Notes</h3>
+                    <span id="notes-count">0 notes</span>
+                </div>
+                <div id="notes-list" class="notes-list">
+                    <!-- Notes list will be loaded here -->
+                </div>
+            </div>
+            <div class="notes-content">
+                <div class="notes-header">
+                    <input type="text" id="note-title" placeholder="Note title..." class="note-title-input">
+                    <div class="notes-actions">
+                        <button id="save-note-btn"><i class="fas fa-save"></i> Save</button>
+                        <button id="delete-note-btn"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+                <div id="editor-container">
+                    <!-- Rich text editor will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Modals -->
-    <div id="new-note-modal" class="modal">
+    <div id="settings-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 id="note-modal-title">Create New Note</h2>
-            <form id="note-form">
-                <div class="form-group">
-                    <label for="note-title">Title:</label>
-                    <input type="text" id="note-title" required>
-                </div>
-                <div class="form-group">
-                    <label for="note-content">Content:</label>
-                    <textarea id="note-content" rows="10"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="note-color">Color:</label>
-                    <select id="note-color">
-                        <option value="default">Default</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="red">Red</option>
-                        <option value="purple">Purple</option>
-                    </select>
-                </div>
-                <input type="hidden" id="note-id">
-                <div class="form-buttons">
-                    <button type="submit">Save</button>
-                    <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-            </form>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <h3>Theme</h3>
+                <select id="theme-selector">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <h3>Data Management</h3>
+                <button id="export-data">Export Data</button>
+                <button id="import-data">Import Data</button>
+                <button id="clear-data" class="danger">Clear All Data</button>
+            </div>
         </div>
     </div>
 
@@ -141,26 +147,8 @@
         </div>
     </div>
 
-    <div id="settings-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Settings</h2>
-            <div class="settings-section">
-                <h3>Theme</h3>
-                <select id="theme-selector">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-            </div>
-            <div class="settings-section">
-                <h3>Data Management</h3>
-                <button id="export-data">Export Data</button>
-                <button id="import-data">Import Data</button>
-                <button id="clear-data" class="danger">Clear All Data</button>
-            </div>
-        </div>
-    </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
+    <script src="script.js"></script>
     <script src="notes.js"></script>
 </body>
 </html>
