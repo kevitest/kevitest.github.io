@@ -38,94 +38,104 @@
     <div class="main-content">
         <div class="topbar">
             <button id="toggle-sidebar"><i class="fas fa-bars"></i></button>
-            <div class="timer-title">
-                <h1>Timer</h1>
-            </div>
+            <h2 class="page-title">Timer</h2>
             <div class="topbar-actions">
-                <button id="saved-timers-btn"><i class="fas fa-list"></i> Saved Timers</button>
                 <button id="settings-btn"><i class="fas fa-cog"></i></button>
             </div>
         </div>
 
         <div class="timer-container">
+            <div class="timer-modes">
+                <button class="timer-mode-btn active" data-mode="pomodoro">Pomodoro</button>
+                <button class="timer-mode-btn" data-mode="shortBreak">Short Break</button>
+                <button class="timer-mode-btn" data-mode="longBreak">Long Break</button>
+                <button class="timer-mode-btn" data-mode="custom">Custom</button>
+            </div>
+
             <div class="timer-display">
-                <div class="time-section">
-                    <div id="timer-display">00:00:00</div>
-                </div>
-                <div class="timer-controls">
-                    <button id="start-timer-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
-                    <button id="pause-timer-btn" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
-                    <button id="reset-timer-btn" class="control-btn"><i class="fas fa-redo"></i> Reset</button>
-                    <button id="save-timer-btn" class="control-btn"><i class="fas fa-save"></i> Save</button>
+                <div class="timer-circle">
+                    <div class="timer-time" id="timer-time">25:00</div>
+                    <div class="timer-progress" id="timer-progress"></div>
                 </div>
             </div>
+
+            <div class="timer-controls">
+                <button id="timer-start" class="timer-control-btn"><i class="fas fa-play"></i> Start</button>
+                <button id="timer-pause" class="timer-control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                <button id="timer-reset" class="timer-control-btn"><i class="fas fa-redo"></i> Reset</button>
+            </div>
+
             <div class="timer-settings">
-                <h2>Timer Settings</h2>
-                <div class="timer-type-selector">
-                    <button id="countdown-btn" class="timer-type-btn active">Countdown</button>
-                    <button id="stopwatch-btn" class="timer-type-btn">Stopwatch</button>
-                    <button id="pomodoro-btn" class="timer-type-btn">Pomodoro</button>
-                </div>
-                <div id="countdown-settings" class="timer-settings-panel active">
-                    <div class="time-input-group">
-                        <div class="time-input">
-                            <label for="hours-input">Hours</label>
-                            <input type="number" id="hours-input" min="0" max="23" value="0">
-                        </div>
-                        <div class="time-input">
-                            <label for="minutes-input">Minutes</label>
-                            <input type="number" id="minutes-input" min="0" max="59" value="25">
-                        </div>
-                        <div class="time-input">
-                            <label for="seconds-input">Seconds</label>
-                            <input type="number" id="seconds-input" min="0" max="59" value="0">
-                        </div>
+                <h3>Timer Settings</h3>
+                <div class="timer-settings-grid">
+                    <div class="timer-setting">
+                        <label for="pomodoro-time">Pomodoro (minutes)</label>
+                        <input type="number" id="pomodoro-time" min="1" max="60" value="25">
+                    </div>
+                    <div class="timer-setting">
+                        <label for="short-break-time">Short Break (minutes)</label>
+                        <input type="number" id="short-break-time" min="1" max="30" value="5">
+                    </div>
+                    <div class="timer-setting">
+                        <label for="long-break-time">Long Break (minutes)</label>
+                        <input type="number" id="long-break-time" min="1" max="60" value="15">
+                    </div>
+                    <div class="timer-setting">
+                        <label for="custom-time">Custom Time (minutes)</label>
+                        <input type="number" id="custom-time" min="1" max="180" value="30">
                     </div>
                 </div>
-                <div id="pomodoro-settings" class="timer-settings-panel">
-                    <div class="pomodoro-options">
-                        <div class="form-group">
-                            <label for="work-duration">Work Duration (minutes)</label>
-                            <input type="number" id="work-duration" min="1" max="60" value="25">
-                        </div>
-                        <div class="form-group">
-                            <label for="short-break">Short Break (minutes)</label>
-                            <input type="number" id="short-break" min="1" max="30" value="5">
-                        </div>
-                        <div class="form-group">
-                            <label for="long-break">Long Break (minutes)</label>
-                            <input type="number" id="long-break" min="5" max="60" value="15">
-                        </div>
-                        <div class="form-group">
-                            <label for="pomodoro-cycles">Cycles before Long Break</label>
-                            <input type="number" id="pomodoro-cycles" min="1" max="10" value="4">
-                        </div>
+                <div class="timer-advanced-settings">
+                    <h4>Advanced Settings</h4>
+                    <div class="form-group">
+                        <label for="auto-start-breaks">Auto start breaks</label>
+                        <input type="checkbox" id="auto-start-breaks">
+                    </div>
+                    <div class="form-group">
+                        <label for="pomodoros-until-long-break">Pomodoros until long break</label>
+                        <input type="number" id="pomodoros-until-long-break" min="1" max="10" value="4">
+                    </div>
+                    <div class="form-group">
+                        <label for="timer-sound">Timer sound</label>
+                        <select id="timer-sound">
+                            <option value="bell">Bell</option>
+                            <option value="digital">Digital</option>
+                            <option value="notification">Notification</option>
+                            <option value="none">None</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="timer-sound">Alert Sound</label>
-                    <select id="timer-sound">
-                        <option value="bell">Bell</option>
-                        <option value="digital">Digital</option>
-                        <option value="chime">Chime</option>
-                        <option value="none">None</option>
-                    </select>
+                <div class="form-buttons">
+                    <button id="save-timer-settings">Save Settings</button>
                 </div>
-                <div class="form-group">
-                    <label for="timer-name">Timer Name (optional)</label>
-                    <input type="text" id="timer-name" placeholder="My Timer">
+            </div>
+
+            <div class="timer-history">
+                <h3>Timer History</h3>
+                <div id="timer-sessions" class="timer-sessions">
+                    <!-- Timer sessions will be displayed here -->
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modals -->
-    <div id="saved-timers-modal" class="modal">
+    <div id="settings-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Saved Timers</h2>
-            <div id="saved-timers-list">
-                <!-- Saved timers will be loaded here -->
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <h3>Theme</h3>
+                <select id="theme-selector">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <h3>Data Management</h3>
+                <button id="export-data">Export Data</button>
+                <button id="import-data">Import Data</button>
+                <button id="clear-data" class="danger">Clear All Data</button>
             </div>
         </div>
     </div>
@@ -182,31 +192,11 @@
         </div>
     </div>
 
-    <div id="settings-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Settings</h2>
-            <div class="settings-section">
-                <h3>Theme</h3>
-                <select id="theme-selector">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-            </div>
-            <div class="settings-section">
-                <h3>Data Management</h3>
-                <button id="export-data">Export Data</button>
-                <button id="import-data">Import Data</button>
-                <button id="clear-data" class="danger">Clear All Data</button>
-            </div>
-        </div>
-    </div>
+    <audio id="timer-sound-bell" src="https://assets.mixkit.co/active_storage/sfx/914/914-preview.mp3" preload="auto"></audio>
+    <audio id="timer-sound-digital" src="https://assets.mixkit.co/active_storage/sfx/1037/1037-preview.mp3" preload="auto"></audio>
+    <audio id="timer-sound-notification" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
-    <!-- Audio elements for timer sounds -->
-    <audio id="bell-sound" src="sounds/bell.mp3" preload="auto"></audio>
-    <audio id="digital-sound" src="sounds/digital.mp3" preload="auto"></audio>
-    <audio id="chime-sound" src="sounds/chime.mp3" preload="auto"></audio>
-    
+    <script src="script.js"></script>
     <script src="timer.js"></script>
 </body>
 </html>
