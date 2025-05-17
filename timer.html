@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeviTest Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>KeviTest</h2>
+            <button id="close-sidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+            <a href="timer.html" class="active"><i class="fas fa-clock"></i> Timer</a>
+            <a href="chatroom.html"><i class="fas fa-comments"></i> Chatroom</a>
+        </div>
+        <div class="sidebar-section">
+            <h3>WebViewer</h3>
+            <div id="embeds-list">
+                <!-- Embeds will be loaded here -->
+            </div>
+            <button id="add-embed-btn"><i class="fas fa-plus"></i> Add Embed</button>
+        </div>
+        <div class="sidebar-section">
+            <h3>Quick Links</h3>
+            <div id="quicklinks-list">
+                <!-- Quick links will be loaded here -->
+            </div>
+            <button id="add-quicklink-btn"><i class="fas fa-plus"></i> Add Quick Link</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <button id="toggle-sidebar"><i class="fas fa-bars"></i></button>
+            <div class="timer-title">
+                <h1>Timer</h1>
+            </div>
+            <div class="topbar-actions">
+                <button id="saved-timers-btn"><i class="fas fa-list"></i> Saved Timers</button>
+                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-display">
+                <div class="time-section">
+                    <div id="timer-display">00:00:00</div>
+                </div>
+                <div class="timer-controls">
+                    <button id="start-timer-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
+                    <button id="pause-timer-btn" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="reset-timer-btn" class="control-btn"><i class="fas fa-redo"></i> Reset</button>
+                    <button id="save-timer-btn" class="control-btn"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </div>
+            <div class="timer-settings">
+                <h2>Timer Settings</h2>
+                <div class="timer-type-selector">
+                    <button id="countdown-btn" class="timer-type-btn active">Countdown</button>
+                    <button id="stopwatch-btn" class="timer-type-btn">Stopwatch</button>
+                    <button id="pomodoro-btn" class="timer-type-btn">Pomodoro</button>
+                </div>
+                <div id="countdown-settings" class="timer-settings-panel active">
+                    <div class="time-input-group">
+                        <div class="time-input">
+                            <label for="hours-input">Hours</label>
+                            <input type="number" id="hours-input" min="0" max="23" value="0">
+                        </div>
+                        <div class="time-input">
+                            <label for="minutes-input">Minutes</label>
+                            <input type="number" id="minutes-input" min="0" max="59" value="25">
+                        </div>
+                        <div class="time-input">
+                            <label for="seconds-input">Seconds</label>
+                            <input type="number" id="seconds-input" min="0" max="59" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div id="pomodoro-settings" class="timer-settings-panel">
+                    <div class="pomodoro-options">
+                        <div class="form-group">
+                            <label for="work-duration">Work Duration (minutes)</label>
+                            <input type="number" id="work-duration" min="1" max="60" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="short-break">Short Break (minutes)</label>
+                            <input type="number" id="short-break" min="1" max="30" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="long-break">Long Break (minutes)</label>
+                            <input type="number" id="long-break" min="5" max="60" value="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="pomodoro-cycles">Cycles before Long Break</label>
+                            <input type="number" id="pomodoro-cycles" min="1" max="10" value="4">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="timer-sound">Alert Sound</label>
+                    <select id="timer-sound">
+                        <option value="bell">Bell</option>
+                        <option value="digital">Digital</option>
+                        <option value="chime">Chime</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timer-name">Timer Name (optional)</label>
+                    <input type="text" id="timer-name" placeholder="My Timer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="saved-timers-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Saved Timers</h2>
+            <div id="saved-timers-list">
+                <!-- Saved timers will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="embed-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Web Embed</h2>
+            <form id="embed-form">
+                <div class="form-group">
+                    <label for="embed-title">Title:</label>
+                    <input type="text" id="embed-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="embed-url">URL:</label>
+                    <input type="url" id="embed-url" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Add</button>
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="quicklink-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Quick Link</h2>
+            <form id="quicklink-form">
+                <div class="form-group">
+                    <label for="quicklink-title">Title:</label>
+                    <input type="text" id="quicklink-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="quicklink-url">URL:</label>
+                    <input type="url" id="quicklink-url" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Add</button>
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="embed-viewer" class="modal">
+        <div class="modal-content embed-viewer-content">
+            <span class="close">&times;</span>
+            <h2 id="embed-viewer-title">Web Embed</h2>
+            <div id="embed-viewer-container">
+                <iframe id="embed-iframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <h3>Theme</h3>
+                <select id="theme-selector">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <h3>Data Management</h3>
+                <button id="export-data">Export Data</button>
+                <button id="import-data">Import Data</button>
+                <button id="clear-data" class="danger">Clear All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio elements for timer sounds -->
+    <audio id="bell-sound" src="sounds/bell.mp3" preload="auto"></audio>
+    <audio id="digital-sound" src="sounds/digital.mp3" preload="auto"></audio>
+    <audio id="chime-sound" src="sounds/chime.mp3" preload="auto"></audio>
+    
+    <script src="timer.js"></script>
+</body>
+</html>
